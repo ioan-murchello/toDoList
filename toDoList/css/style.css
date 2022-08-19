@@ -32,7 +32,7 @@
   margin-top: 100px;
   width: 300px;
   height: 200px;
-  background-color: #babbbb;
+  background-color: #f1f1eb;
   border-radius: 5px;
   -webkit-box-shadow: 0 8px 25px #000;
   box-shadow: 0 8px 25px #000;
@@ -58,8 +58,8 @@
 }
 
 .popup_title {
-  font-family: sans-serif;
-  font-size: 25px;
+  font-family: inherit;
+  font-size: 30px;
   font-weight: 500;
   margin: 15px;
 }
@@ -67,12 +67,12 @@
 .popup_btn {
   position: relative;
   width: 140px;
-  height: 36px;
+  height: 44px;
   margin: 10px 0 0 0;
-  border: none;
+  border: 2px solid lightseagreen;
   border-radius: 5px;
   outline: none;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: 1px;
   background-color: #a0dbd7;
@@ -83,6 +83,12 @@
   transition: transform 0.5s ease;
   transition: transform 0.5s ease, -webkit-transform 0.5s ease;
   cursor: pointer;
+  -webkit-box-shadow: 0 0 9px black;
+  box-shadow: 0 0 9px black;
+}
+
+.popup_btn:hover {
+  border: 2px solid rgb(28, 106, 102);
 }
 
 .popup_btn::after {
@@ -90,41 +96,12 @@
   position: absolute;
   width: 5px;
   height: 100px;
-  background-color: rgb(255, 255, 255);
+  background-color: #9aa69e;
   -webkit-transform: rotate(90deg) translate(-108px, -15px);
   -ms-transform: rotate(90deg) translate(-108px, -15px);
   transform: rotate(90deg) translate(-108px, -15px);
   -webkit-box-shadow: 0 3px 5px #fff;
   box-shadow: 0 3px 5px #fff;
-}
-
-.popup_btn:hover::after {
-  -webkit-animation: slider 0.3s ease-in;
-  animation: slider 0.3s ease-in;
-}
-
-@-webkit-keyframes slider {
-  0% {
-    -webkit-transform: translate(-108px, -15px);
-    transform: translate(-108px, -15px);
-  }
-
-  100% {
-    -webkit-transform: translate(43px, -32px);
-    transform: translate(43px, -32px);
-  }
-}
-
-@keyframes slider {
-  0% {
-    -webkit-transform: translate(-108px, -15px);
-    transform: translate(-108px, -15px);
-  }
-
-  100% {
-    -webkit-transform: translate(43px, -32px);
-    transform: translate(43px, -32px);
-  }
 }
 
 .popup_close_btn {
@@ -146,6 +123,7 @@
   height: 55px;
   background-color: #000;
   color: #fff;
+  border: 2px solid #45c70e;
   border-radius: 50%;
   z-index: 5;
   -webkit-transform: rotate(45deg);
@@ -162,22 +140,24 @@
   content: "";
   position: absolute;
   width: 29px;
-  height: 3px;
-  background-color: #fff;
+  height: 4px;
+  background-color: #cd3a2e;
   -webkit-transform: rotate(0);
   -ms-transform: rotate(0);
   transform: rotate(0);
+  border-radius: 2px;
 }
 
 .popup_close_btn::after {
   content: "";
   position: absolute;
   width: 29px;
-  height: 3px;
-  background-color: #fff;
+  height: 4px;
+  background-color: #cd3a2e;
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
+  border-radius: 2px;
 }
 
 .popup_close_btn:hover {
@@ -671,6 +651,9 @@ label {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
   width: 120px;
   background-color: #000;
   height: 35px;
@@ -697,14 +680,17 @@ label {
   width: 120px;
   color: white;
   font-weight: 500;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
   height: 35px;
-  background: #0baf54;
+  background: #2ea161;
   align-items: center;
   border-radius: 3px;
 }
 
 .complete_btn:hover {
-  background-color: rgb(1, 186, 29);
+  background-color: #709f5b;
 }
 
 .completed {
@@ -729,12 +715,12 @@ label {
 }
 
 button:disabled:hover {
-  background-color: gray;
+  background-color: #709f5b;
   cursor: not-allowed;
 }
 
 .disable_btn_class {
-  background-color: gray;
+  background-color: #709f5b;
 }
 
 @media (max-width: 991.98px) {
@@ -770,6 +756,20 @@ button:disabled:hover {
 }
 
 @media (max-width: 567.98px) {
+  .popup_dialog {
+    width: 270px;
+  }
+
+  .popup_close_btn {
+    left: 243px;
+  }
+
+  .styled_box {
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+  }
+
   .header_nav_items {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

@@ -58,13 +58,13 @@
     let hour = date.getHours();
         hour < 10 ? '0' + hour : hour;
     let minutes = date.getMinutes();
-        minutes < 10 ? `00${minutes}`: minutes;
+        minutes < 10 ? `0${minutes}`: minutes;
     let time;
-        if(hour < 12){
-          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} am`;
+        if(hour > 12){
+          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} pm`;
         }
         else{
-          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} pm`;
+          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} am`;
         }
     
     return time;     
@@ -178,7 +178,7 @@
   }
 
   function getLiitem(event){
-
+       flag = false;
    let target = event.target;
    let liItem = target.closest('[data-task-id]');
    let id = liItem.getAttribute('data-task-id');
@@ -188,19 +188,20 @@
         
         let answer = confirm('You will delete this task?');
             if(answer){
-              
+              flag = false;
               liItem.style.transform = 'scale(0.95)';
               setTimeout(() => {
                 removeLiitemFromUl(answer, liItem)
                 deleteFromTasks(tasks, id)
                 attributeReplacer(tasks, id);
               }, 500)
+              // classChanger(uncompleteTask,allTasks,completedTasks);
+              // showUncompleted();
+          
               
-              // allTasks.classList.add('active_class');
-              // showCompleted();
               localStorage.setItem('taski', JSON.stringify(tasks));
             }
-            else{ return }
+            // else{ return }
       }
 
       if(checkbox_input.checked == true && target.classList.contains('complete_btn')){
@@ -209,7 +210,14 @@
         
       }
 
-      else{
+      if(checkbox_input.checked == false && target.classList.contains('complete_btn')){
+        
+        flag = true;
+        console.log(flag)
+        
+      }
+
+      if(flag == true){
         tasks[id].completed = true;
           let time = tasks[id].completeTime = getTime();
           completeBtn.setAttribute('data-disabled', true);
@@ -223,9 +231,9 @@
               completeBtn.classList.add('disable_btn_class');
               localStorage.setItem('taski', JSON.stringify(tasks));
 
-              classChanger(completedTasks,allTasks,uncompleteTask);
-              showCompleted();
-              localStorage.setItem('taski', JSON.stringify(tasks));
+              // classChanger(completedTasks,allTasks,uncompleteTask);
+              // showCompleted();
+              // localStorage.setItem('taski', JSON.stringify(tasks));
             }
 
             
