@@ -1,13 +1,19 @@
-
 (function(){
+
+  
+
 
   let tasks = [];
 
   if(tasks.length){
     putLiItemInUllists(tasks)
   }
-      
+
+  
+  // flags
   let flag = false;
+  let answer = false;
+
   let ul = document.querySelector('.cards_list');
   let form = document.forms['taskform'];
   let inputtask = form.elements['taskinput'],
@@ -18,7 +24,7 @@
       allTasks = document.querySelector('.all_task'),
       uncompleteTask = document.querySelector('.notcomplete_task');
 
-      allTasks.classList.add('active_class');
+        allTasks.classList.add('active_class');
 
   completedTasks.addEventListener('click', () => {
     classChanger(completedTasks,allTasks,uncompleteTask);
@@ -60,11 +66,11 @@
     let minutes = date.getMinutes();
         minutes < 10 ? `0${minutes}`: minutes;
     let time;
-        if(hour > 12){
-          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} pm`;
+        if(hour < 12){
+          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} am`;
         }
         else{
-          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} am`;
+          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} pm`;
         }
     
     return time;     
@@ -72,9 +78,10 @@
 
   function createLiItem(task, index) {
    
-    
     let li = document.createElement('li');
+
       if(task.completed == true && task.completeTime != null){
+
         li.classList.add('cards_item','completed');
         li.addEventListener('click', getLiitem);
         li.setAttribute('data-task-id', index)
@@ -130,7 +137,7 @@
   if(localStorage.getItem('taski')){
     tasks = JSON.parse(localStorage.getItem('taski'))
     putLiItemInUllists(tasks)
-  }
+    }
 
   function createTaskObject(value){
 
@@ -143,8 +150,8 @@
 
      tasks.push(newTask);
      localStorage.setItem('taski', JSON.stringify(tasks));
-     putLiItemInUllists(tasks);
-     
+
+     putLiItemInUllists(tasks);  
   }
 
   function onFormSubmit(event){
@@ -160,9 +167,7 @@
     }
       let trimmered = replaceArrowSymbols,
         replacered = trimmered.replace(trimmered[0], trimmered[0].toUpperCase());
-
         createTaskObject(replacered);
-        console.log(tasks);
         form.reset();
   }
 
@@ -176,85 +181,136 @@
     if(answer == false) return;
     el.remove();
   }
+     
+
+
+
+
+
+
+
+
+
+
 
   function getLiitem(event){
-       flag = false;
+
+  
+   
    let target = event.target;
    let liItem = target.closest('[data-task-id]');
    let id = liItem.getAttribute('data-task-id');
    let completeBtn = liItem.querySelector('.complete_btn');
+   let deleteBtn = liItem.querySelector('.delete_btn');
    
-      if(target.classList.contains('delete_btn')){
-        
-        let answer = confirm('You will delete this task?');
-            if(answer){
-              flag = false;
-              liItem.style.transform = 'scale(0.95)';
-              setTimeout(() => {
-                removeLiitemFromUl(answer, liItem)
-                deleteFromTasks(tasks, id)
+      if(checkbox_input.checked == false && target == completeBtn){
+
+          tasks[id].completed = true;
+            let time = tasks[id].completeTime = getTime();
+            completeBtn.setAttribute('data-disabled', true);
+            completeBtn.classList.add('disable_btn_class');
+            liItem.querySelector('.complete_time').textContent = time;
+            localStorage.setItem('taski', JSON.stringify(tasks));
+  
+              if(tasks[id].completed == true){
+                liItem.classList.add('completed');
+                completeBtn.disabled = 'disabled';
+                completeBtn.classList.add('disable_btn_class');
+                localStorage.setItem('taski', JSON.stringify(tasks));
+              }
+      }
+
+      if(target == deleteBtn && checkbox_input.checked == false){
+        flag = true;
+        liItem.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                removeLiitemFromUl(flag, liItem);
+                deleteFromTasks(tasks, id);
                 attributeReplacer(tasks, id);
               }, 500)
-              // classChanger(uncompleteTask,allTasks,completedTasks);
-              // showUncompleted();
-          
-              
-              localStorage.setItem('taski', JSON.stringify(tasks));
-            }
-            // else{ return }
-      }
-
-      if(checkbox_input.checked == true && target.classList.contains('complete_btn')){
-        
-        question(flag, id, completeBtn, liItem)
-        
-      }
-
-      if(checkbox_input.checked == false && target.classList.contains('complete_btn')){
-        
-        flag = true;
-        console.log(flag)
-        
-      }
-
-      if(flag == true){
-        tasks[id].completed = true;
-          let time = tasks[id].completeTime = getTime();
-          completeBtn.setAttribute('data-disabled', true);
-          completeBtn.classList.add('disable_btn_class');
-          liItem.querySelector('.complete_time').textContent = time;
-          localStorage.setItem('taski', JSON.stringify(tasks));
-
-            if(tasks[id].completed == true){
-              liItem.classList.add('completed');
-              completeBtn.disabled = 'disabled';
-              completeBtn.classList.add('disable_btn_class');
-              localStorage.setItem('taski', JSON.stringify(tasks));
-
-              // classChanger(completedTasks,allTasks,uncompleteTask);
-              // showCompleted();
-              // localStorage.setItem('taski', JSON.stringify(tasks));
-            }
-
-            
-    
-      }
-
-      if(uncompleteTask.classList.contains('active_class') && target.classList.contains('complete_btn')){
-        if(!flag){ return }
-        else{
-          classChanger(completedTasks,allTasks,uncompleteTask);
-          showCompleted();
-          localStorage.setItem('taski', JSON.stringify(tasks));
+      
+               localStorage.setItem('taski', JSON.stringify(tasks));
         }
+
+      if(uncompleteTask.classList.contains('active_class') && target == completeBtn && checkbox_input.checked == true){
+        // animateChangingClass(liItem,completeBtn)
+        question(flag, id, completeBtn, liItem);
+      }
+
+      if(uncompleteTask.classList.contains('active_class') && target == completeBtn && checkbox_input.checked == false){
+        // animateChangingClass(liItem,completeBtn)
+        setTimeout(function(){
+          classChanger(uncompleteTask,allTasks,completedTasks);
+          showUncompleted();
+          localStorage.setItem('taski', JSON.stringify(tasks));
+
+        },500)
+        tasks[id].completed = true;
+        let time = tasks[id].completeTime = getTime();
+        completeBtn.setAttribute('data-disabled', true);
+        completeBtn.classList.add('disable_btn_class');
+        liItem.querySelector('.complete_time').textContent = time;
+        localStorage.setItem('taski', JSON.stringify(tasks));
+
+          if(tasks[id].completed == true){
+            liItem.classList.add('completed');
+            completeBtn.disabled = 'disabled';
+            completeBtn.classList.add('disable_btn_class');
+            localStorage.setItem('taski', JSON.stringify(tasks));
+          }
+             
       }
       
+      if(target == deleteBtn && checkbox_input.checked == true){
+        deleteQuestion(flag, liItem, id)
+        }
+
+      if(target == completeBtn && checkbox_input.checked == true){
+        question(flag, id, completeBtn, liItem)
+      }
       
   }
 
+
+
+
+
+function animateChangingClass(item,btn){
+    item.classList.add('completed');
+    btn.disabled = 'disabled';
+    btn.classList.add('disable_btn_class');
+
+        setTimeout(function(){
+
+          item.classList.add('animate_away');
+          
+            setTimeout(function(){
+              classChanger(uncompleteTask,completedTasks,allTasks);
+              showUncompleted();
+              
+              item.classList.remove('animate_away');
+              
+              localStorage.setItem('taski', JSON.stringify(tasks));
+            },300)
+            
+        }, 500)
+        
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
   function deleteFromTasks(arr,id){
      arr.splice(id, 1);
-     console.log(arr)
      localStorage.setItem('taski', JSON.stringify(arr))
      return arr
   }
@@ -268,12 +324,11 @@
           if(!arr2.length) return;
 
           if(arr2[j][index] != arr[i]){
-              arr2[j][index] = arr[i];
+              arr2[i][index] = arr[j];
               arr2[i].setAttribute('data-task-id', i);
           }
       }
     }
-    console.log(tasks)
   }
 
   function showCompleted(){
@@ -313,12 +368,10 @@
         checkbox_input.checked = true;
         point.classList.add('switcher_on');
         pont.classList.add('pont_change');
-      
       }
       else{
         point.classList.remove('switcher_on')
         pont.classList.remove('pont_change');
-      
       }
 
   function saveCheckbox(){
@@ -328,25 +381,20 @@
     point.classList.add('switcher_on');
     pont.classList.add('pont_change');
    
-  }
-  else{
-    point.classList.remove('switcher_on')
-    pont.classList.remove('pont_change');
-   
-  }
-    console.log(checkbox_input.checked)
+    }
+    else{
+      point.classList.remove('switcher_on')
+      pont.classList.remove('pont_change');
+    
+    }
   }
 
   checkbox_input.addEventListener('change', saveCheckbox)
 
-      
-        
-
-      
   //---------------------------
 
 
-  function question(fl, id, btn, item){
+  function question(fl, id, btn, item, f){
         document.body.style.overflow = 'hidden';
 
     let popup = document.querySelector('.popup_main_wrapper');
@@ -357,6 +405,7 @@
           let target = event.target;
 
           if(target.classList.contains('popup_btn')){
+            
               fl = true;
               if(fl){
                 tasks[id].completed = true;
@@ -366,20 +415,26 @@
                 item.querySelector('.complete_time').textContent = time;
                 popup.style.visibility = 'hidden';
                 popup.style.opacity = 0;
-                document.body.style.overflow = ''
+                document.body.style.overflow = '';
+
                 localStorage.setItem('taski', JSON.stringify(tasks));
 
                   if(tasks[id].completed == true){
-                    item.classList.add('completed');
+                    item.classList.add('completed')
                     btn.disabled = 'disabled';
                     btn.classList.add('disable_btn_class');
+
                     localStorage.setItem('taski', JSON.stringify(tasks));
                   }
               }
-              
-              
+          }
 
-              
+          if(target.classList.contains('popup_btn') && uncompleteTask.classList.contains('active_class') && checkbox_input.checked == true){
+            setTimeout(function(){
+              classChanger(uncompleteTask,allTasks,completedTasks);
+              showUncompleted();
+            },500)
+            localStorage.setItem('taski', JSON.stringify(tasks));
           }
 
           if(target.classList.contains('popup_close_btn') || target.classList.contains('popup_main_wrapper')){
@@ -388,22 +443,47 @@
             document.body.style.overflow = ''
           }
 
-          if(uncompleteTask.classList.contains('active_class') && fl == true){
-        
-            classChanger(completedTasks,allTasks,uncompleteTask);
-            showCompleted();
-            localStorage.setItem('taski', JSON.stringify(tasks));
-            
-            
-          }
+         
         })
 
        
   }
 
+  function deleteQuestion(flag, item, id){
+    document.body.style.overflow = 'hidden';
+
+    let popup = document.querySelector('.popup_main_wrapper_delete');
+        popup.style.visibility = 'visible';
+        popup.style.opacity = 1;
+
+        popup.addEventListener('click', function(event){
+
+      let target = event.target;
+     
+        if(target.classList.contains('popup_close_btn_delete') || target.classList.contains('popup_main_wrapper_delete')){
+          popup.style.visibility = 'hidden';
+          popup.style.opacity = 0;
+          document.body.style.overflow = ''
+        }
+
+        if(target.classList.contains('popup_btn_okay')){
+          flag = true;
+          if(flag){
+            item.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              removeLiitemFromUl(flag, item)
+              deleteFromTasks(tasks, id)
+              attributeReplacer(tasks, id);
+            }, 500)
   
-        
-    // console.log(flag)
+            localStorage.setItem('taski', JSON.stringify(tasks));
+          }
+          popup.style.visibility = 'hidden';
+          popup.style.opacity = 0;
+          document.body.style.overflow = ''
+        }
+    })
+  }
 })()
 
 
