@@ -564,7 +564,7 @@ label {
 .alltasks_section {
   width: 100%;
   background-color: rgb(40, 52, 63);
-  padding: 12px;
+  padding: 12px 0;
 }
 
 .alltasks_wrapper {
@@ -760,7 +760,6 @@ label {
 .create_data {
   font-size: 18px;
   font-weight: 500;
-  margin: 0 5px;
   line-height: 24px;
   color: #fff;
 }
@@ -781,9 +780,6 @@ label {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  padding: 5px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
