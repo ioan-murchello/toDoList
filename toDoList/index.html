@@ -1,4 +1,81 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <meta http-equiv="X-UA-Compatible" content="IE=edge">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <link rel="stylesheet" href="css/style.min.css">    <title>toDoList</title></head><body>  <section class="logo_section">      <div class="container">        <div class="logo_wrapper">          <div class="logo">toDoList</div>          <div class="switcher_wraper">            <div class="switcher">              <label class="inp_label">                <input class="inp" type="checkbox">                <div class="styled_box">                  <i class="point">                    <span class="pont"></span>                  </i>                </div>              </label>             </div>          </div>        </div>      </div>  </section>  <header class="header">      <div class="header_nav">        <div class="container">          <form name="taskform" class="header_nav_items">            <div class="input_wrapper">              <input name="taskinput" id="inputtask" type="text" class="main_input" placeholder="Add a new task">            </div>            <button id="btn" class="add_task">Add task</button>          </form>        </div>      </div>  </header>  <section class="alltasks_section">      <div class="container">        <ul class="alltasks_wrapper">          <li class="alltasks_items all_task">All</li>          <li class="alltasks_items completed_task">Completed</li>          <li class="alltasks_items notcomplete_task">Uncompleted</li>        </ul>      </div>    </section>  <section class="cards">    <div class="cards_wrapper container">      <div class="cards_block">        <ul class="cards_list">          <!-- <li class="cards_item">            <div class="text_block">              <p class="card_text">Lorem ipsum accusamus? Est, aut? Asperiores velit a omnis repellendus ipsam hic nesciunt repudiandae accusantium dolore quidem itaque, cupiditate excepturi beatae consectetur explicabo cumque! Quod ad sapiente natus deserunt laudantium doloremque placeat tempore.</p>              <div class="data_wrapper">                <div class="create_data">Created: <span class="create_time">Sunday 26.6.2022 17:55pm</span></div>                <div class="create_data">Completed: <span class="create_time">Monday 27.6.2022 18:22pm</span></div>              </div>                          </div>            <div class="buttons_block">              <button class="delete_btn">Delete task</button>              <button class="complete_btn">Task complete</button>            </div>          </li> -->        </ul>      </div>    </div>  </section>        <div class="popup_main_wrapper">
+
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.min.css">
+    <title>toDoList</title>
+</head>
+<body>
+  <section class="logo_section">
+      <div class="container">
+        <div class="logo_wrapper">
+          <div class="logo">toDoList</div>
+          <div class="switcher_wraper">
+            <div class="switcher">
+              <label class="inp_label">
+                <input class="inp" type="checkbox">
+                <div class="styled_box">
+                  <i class="point">
+                    <span class="pont"></span>
+                  </i>
+                </div>
+              </label> 
+            </div>
+          </div>
+         </div>
+      </div>
+  </section>
+    
+  <header class="header">
+      <div class="header_nav">
+        <div class="container">
+          <form name="taskform" class="header_nav_items">
+            <div class="input_wrapper">
+              <input name="taskinput" id="inputtask" type="text" class="main_input" placeholder="Add a new task">
+            </div>
+            <button id="btn" class="add_task">Add task</button>
+          </form>
+        </div>
+      </div>
+  </header>
+
+  <section class="alltasks_section">
+      <div class="container">
+        <ul class="alltasks_wrapper">
+          <li class="alltasks_items all_task">All</li>
+          <li class="alltasks_items completed_task">Completed</li>
+          <li class="alltasks_items notcomplete_task">Uncompleted</li>
+        </ul>
+      </div>  
+  </section>
+
+  <section class="cards">
+    <div class="cards_wrapper container">
+      <div class="cards_block">
+        <ul class="cards_list">
+          <!-- <li class="cards_item">
+            <div class="text_block">
+              <p class="card_text">Lorem ipsum accusamus? Est, aut? Asperiores velit a omnis repellendus ipsam hic nesciunt repudiandae accusantium dolore quidem itaque, cupiditate excepturi beatae consectetur explicabo cumque! Quod ad sapiente natus deserunt laudantium doloremque placeat tempore.</p>
+              <div class="data_wrapper">
+                <div class="create_data">Created: <span class="create_time">Sunday 26.6.2022 17:55pm</span></div>
+                <div class="create_data">Completed: <span class="create_time">Monday 27.6.2022 18:22pm</span></div>
+              </div>
+            </div>
+            <div class="buttons_block">
+              <button class="delete_btn">Delete task</button>
+              <button class="complete_btn">Task complete</button>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+    <div class="popup_main_wrapper">
         <div class="popup_dialog">
             <div class="popup_close_btn"></div>
             <div class="popup_modal">
@@ -7,7 +84,8 @@
             </div>
         </div>
     </div>
-    <div class="popup_main_wrapper_delete">
+    
+    <div class="popup_main_wrapper_delete">
     <div class="popup_dialog_delete">
         <div class="popup_close_btn_delete"></div>
         <div class="popup_modal_delete">
@@ -15,4 +93,9 @@
             <button class="popup_btn_okay">Yes</button>
         </div>
     </div>
-</div>    <script type="module" src="js/script.js"></script></body></html>
+</div>
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
