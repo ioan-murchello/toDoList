@@ -1,15 +1,10 @@
 (function(){
-
-  
-
-
   let tasks = [];
 
   if(tasks.length){
     putLiItemInUllists(tasks)
   }
 
-  
   // flags
   let flag = false;
   let answer = false;
@@ -50,30 +45,13 @@
   task_btn.addEventListener('click', onFormSubmit);
 
   function getTime(){
-
-    let days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-
+    let am_pm = '12:00';
+    let mainTime;
     let date = new Date();
-    let weekday = days[date.getDay() - 1];
-        if(weekday == undefined){
-          weekday = 'Su'
-        };
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    let hour = date.getHours();
-        hour < 10 ? '0' + hour : hour;
-    let minutes = date.getMinutes();
-        minutes < 10 ? `0${minutes}`: minutes;
-    let time;
-        if(hour < 12){
-          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} am`;
-        }
-        else{
-          time = `${weekday} ${day} / ${month} / ${year} ${hour}:${minutes} pm`;
-        }
-    
-    return time;     
+    let times = date.toTimeString().slice(0,5);
+    let fullDate = date.toDateString().slice(0,17).split(' ').join(' / ');
+    times > am_pm ? mainTime = `${fullDate} / ${times} pm` : mainTime = `${fullDate} / ${times} am`
+    return mainTime;  
   }
 
   function createLiItem(task, index) {
@@ -182,21 +160,7 @@
     el.remove();
   }
      
-
-
-
-
-
-
-
-
-
-
-
   function getLiitem(event){
-
-  
-   
    let target = event.target;
    let liItem = target.closest('[data-task-id]');
    let id = liItem.getAttribute('data-task-id');
@@ -271,10 +235,6 @@
       
   }
 
-
-
-
-
 function animateChangingClass(item,btn){
     item.classList.add('completed');
     btn.disabled = 'disabled';
@@ -296,18 +256,6 @@ function animateChangingClass(item,btn){
         }, 500)
         
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
   function deleteFromTasks(arr,id){
      arr.splice(id, 1);
@@ -356,7 +304,6 @@ function animateChangingClass(item,btn){
     })
   
   }
- 
 
   // checkbox
   let point = document.querySelector('.point');
@@ -442,11 +389,7 @@ function animateChangingClass(item,btn){
             popup.style.opacity = 0;
             document.body.style.overflow = ''
           }
-
-         
-        })
-
-       
+        })  
   }
 
   function deleteQuestion(flag, item, id){
